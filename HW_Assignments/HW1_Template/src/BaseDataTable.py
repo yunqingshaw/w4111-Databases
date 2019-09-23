@@ -24,6 +24,7 @@ class BaseDataTable(ABC):
         pass
 
 
+
     @abstractmethod
     def find_by_primary_key(self, key_fields, field_list=None):
         """
