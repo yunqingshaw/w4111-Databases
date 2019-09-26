@@ -1,0 +1,539 @@
+test People.csv
+*********************************
+test load()
+*********************************
+C:\Users\Admin\.conda\envs\HW1_Template\python.exe H:/M.S._2019Fall/Database/HW_Assignments/HW1_Template/tests/csv_table_tests.py
+DEBUG:root:CSVDataTable.__init__: data = {
+  "table_name": "People.csv",
+  "connect_info": {
+    "directory": "H:\\M.S._2019Fall\\Database\\HW_Assignments\\HW1_Template\\Data\\Baseball",
+    "file_name": "People.csv"
+  },
+  "key_columns": [
+    "playerID"
+  ],
+  "debug": true
+}
+DEBUG:root:CSVDataTable._load: Loaded 19617 rows
+Created table = CSVDataTable: config data = 
+{
+  "table_name": "People.csv",
+  "connect_info": {
+    "directory": "H:\\M.S._2019Fall\\Database\\HW_Assignments\\HW1_Template\\Data\\Baseball",
+    "file_name": "People.csv"
+  },
+  "key_columns": [
+    "playerID"
+  ],
+  "debug": true
+}
+Some Rows: = 
+     playerID birthYear birthMonth birthDay birthCountry birthState      birthCity deathYear deathMonth deathDay  ...  nameLast        nameGiven weight height bats throws       debut   finalGame   retroID    bbrefID
+0   aardsda01      1981         12       27          USA         CO         Denver                                ...   Aardsma      David Allan    215     75    R      R  2004-04-06  2015-08-23  aardd001  aardsda01
+1   aaronha01      1934          2        5          USA         AL         Mobile                                ...     Aaron      Henry Louis    180     72    R      R  1954-04-13  1976-10-03  aaroh101  aaronha01
+2   aaronto01      1939          8        5          USA         AL         Mobile      1984          8       16  ...     Aaron       Tommie Lee    190     75    R      R  1962-04-10  1971-09-26  aarot101  aaronto01
+3    aasedo01      1954          9        8          USA         CA         Orange                                ...      Aase   Donald William    190     75    R      R  1977-07-26  1990-10-03  aased001   aasedo01
+4    abadan01      1972          8       25          USA         FL     Palm Beach                                ...      Abad    Fausto Andres    184     73    L      L  2001-09-10  2006-04-13  abada001   abadan01
+5         ***       ***        ***      ***          ***        ***            ***       ***        ***      ***  ...       ***              ***    ***    ***  ***    ***         ***         ***       ***        ***
+6         ***       ***        ***      ***          ***        ***            ***       ***        ***      ***  ...       ***              ***    ***    ***  ***    ***         ***         ***       ***        ***
+7   zupcibo01      1966          8       18          USA         PA     Pittsburgh                                ...    Zupcic           Robert    220     76    R      R  1991-09-07  1994-08-04  zupcb001  zupcibo01
+8    zupofr01      1939          8       29          USA         CA  San Francisco      2005          3       25  ...      Zupo     Frank Joseph    182     71    L      R  1957-07-01  1961-05-09  zupof101   zupofr01
+9   zuvelpa01      1958         10       31          USA         CA      San Mateo                                ...   Zuvella             Paul    173     72    R      R  1982-09-04  1991-05-02  zuvep001  zuvelpa01
+10  zuverge01      1924          8       20          USA         MI        Holland      2014          9        8  ...  Zuverink           George    195     76    R      R  1951-04-21  1959-06-15  zuveg101  zuverge01
+11  zwilldu01      1888         11        2          USA         MO      St. Louis      1978          3       27  ...  Zwilling  Edward Harrison    160     66    L      L  1910-08-14  1916-07-12  zwild101  zwilldu01
+
+[12 rows x 24 columns]
+******************************************
+test find_by_primary_key(): normal case
+******************************************
+Test name is: normal case
+Key fields are:['aardsda01']
+Field list is: None
+The query result is:     playerID birthYear birthMonth birthDay birthCountry birthState birthCity deathYear deathMonth deathDay  ... nameLast    nameGiven weight height bats throws       debut   finalGame   retroID    bbrefID
+0  aardsda01      1981         12       27          USA         CO    Denver                                ...  Aardsma  David Allan    215     75    R      R  2004-04-06  2015-08-23  aardd001  aardsda01
+
+[1 rows x 24 columns]
+******************************************
+test find_by_primary_key(): incorrect key numbers
+*********************************************
+Test name is: incorrect key numbers
+Key fields are:['aardsda01', '1981']
+Field list is: None
+Exception: 1 key fields are expected!
+********************************************
+test find_by_primary_key(): no matched record
+*******************************************
+Test name is: no matching record
+Key fields are:['aardsda02']
+Field list is: None
+Exception: No matching record was found.
+******************************************
+test find_by_primary_key(): with given field list
+******************************************
+Test name is: field list is not none
+Key fields are:['aardsda01']
+Field list is: ['birthYear', 'birthMonth', 'birthDay']
+The query result is:   birthYear birthMonth birthDay
+0      1981         12       27
+
+
+Process finished with exit code 0
+ ******************************************
+test find_by_template(): normal case
+*******************************************
+Test name is: normal case
+Template is : {'birthYear': '1981', 'birthMonth': '12'}
+The query result is: 
+     playerID birthYear birthMonth birthDay birthCountry         birthState       birthCity deathYear deathMonth deathDay  ...  nameLast          nameGiven weight height bats throws       debut   finalGame   retroID    bbrefID
+0   aardsda01      1981         12       27          USA                 CO          Denver                                ...   Aardsma        David Allan    215     75    R      R  2004-04-06  2015-08-23  aardd001  aardsda01
+1   accarje01      1981         12       18          USA                 AZ         Phoenix                                ...   Accardo       Jeremiah Lee    195     72    R      R  2005-05-04  2012-09-27  accaj001  accarje01
+2   castoko01      1981         12        8          USA                 OR           Salem                                ...     Casto   Kory Christopher    195     73    L      R  2007-04-03  2008-09-28  castk001  castoko01
+3   colinal01      1981         12       26    Venezuela           Carabobo  Puerto Cabello                                ...    Colina      Alvin Enrique    210     75    R      R  2006-09-18  2006-09-24  colia001  colinal01
+4   costash01      1981         12       12          USA                 CA         Visalia                                ...     Costa       Shane Jeremy    205     72    L      R  2005-06-02  2007-09-30  costs001  costash01
+5    diazvi01      1981         12       10         D.R.  Distrito Nacional   Santo Domingo                                ...      Diaz      Victor Israel    210     72    R      R  2004-09-11  2007-07-07  diazv001   diazvi01
+6   gonzaan01      1981         12       15         P.R.                        Rio Piedras                                ...  Gonzalez       Angel Manuel    215     75    R      R  2007-04-25  2009-10-03  gonza004  gonzaan01
+7   guzmaan01      1981         12       14    Venezuela   Distrito Federal         Caracas                                ...    Guzman       Angel Moises    190     75    R      R  2006-04-26  2009-09-08  guzma001  guzmaan01
+8   infanom01      1981         12       26    Venezuela         Anzoategui  Puerto La Cruz                                ...   Infante        Omar Rafael    195     71    R      R  2002-09-07  2016-06-06  infao001  infanom01
+9   marcush01      1981         12       14          USA                 MO     Kansas City                                ...    Marcum       Shaun Michal    195     72    R      R  2005-09-06  2015-06-17  marcs001  marcush01
+10  montalu01      1981         12       15         P.R.                            Bayamon                                ...  Montanez        Luis Anibal    195     73    R      R  2008-04-28  2011-09-28  montl001  montalu01
+11  moseldu01      1981         12       26          USA                 TX       Texarkana                                ...   Moseley       Dustin Aaron    215     76    R      R  2006-07-17  2012-04-07  mosed001  moseldu01
+12  narvech01      1981         12       20          USA                 CO       Englewood                                ...  Narveson  Christopher Gregg    205     75    L      L  2006-09-08  2016-04-19  narvc001  narvech01
+13  shielja02      1981         12       20          USA                 CA         Newhall                                ...   Shields      James Anthony    210     75    R      R  2006-05-31  2018-09-25  shiej002  shielja02
+14  snellch02      1981         12        3          USA                 FL     North Miami                                ...  Snelling  Christopher Doyle    165     70    L      L  2002-05-25  2008-06-06  snelc001  snellch02
+15  taverwi01      1981         12       25         D.R.   Hermanas Mirabal         Tenares                                ...   Taveras              Willy    180     72    R      R  2004-09-06  2010-05-15  tavew001  taverwi01
+16  willije02      1981         12        4          USA                 HI        Honolulu                                ...  Williams         Jerome Lee    260     75    R      R  2003-04-26  2016-09-26  willj003  willije01
+
+[17 rows x 24 columns]
+
+
+Process finished with exit code 0
+**************************************************
+test find_by_template(): unmatched template
+**************************************************
+Test name is: unmatched field
+Template is : {'playerID': 'aardsda01', 'birthYear': '1980'}
+Exception: No record was found by template.
+
+
+Process finished with exit code 0
+*************************************************
+test find_by_template(): normal case with given field list
+*************************************************
+Test name is: given field_list
+Template is : {'birthYear': '1981', 'birthMonth': '12'}
+The query result is: 
+   birthYear birthMonth birthDay
+0       1981         12       27
+1       1981         12       18
+2       1981         12        8
+3       1981         12       26
+4       1981         12       12
+5       1981         12       10
+6       1981         12       15
+7       1981         12       14
+8       1981         12       26
+9       1981         12       14
+10      1981         12       15
+11      1981         12       26
+12      1981         12       20
+13      1981         12       20
+14      1981         12        3
+15      1981         12       25
+16      1981         12        4
+
+
+Process finished with exit code 0
+**********************************************
+test delete_by_key(): normal case
+**********************************************
+Test name is: normal case
+Key fields are: ['zychto01']
+Table before delete: 
+        playerID birthYear birthMonth birthDay birthCountry birthState      birthCity deathYear deathMonth deathDay  ...  nameLast        nameGiven weight height bats throws       debut   finalGame   retroID    bbrefID
+0      aardsda01      1981         12       27          USA         CO         Denver                                ...   Aardsma      David Allan    215     75    R      R  2004-04-06  2015-08-23  aardd001  aardsda01
+1      aaronha01      1934          2        5          USA         AL         Mobile                                ...     Aaron      Henry Louis    180     72    R      R  1954-04-13  1976-10-03  aaroh101  aaronha01
+2      aaronto01      1939          8        5          USA         AL         Mobile      1984          8       16  ...     Aaron       Tommie Lee    190     75    R      R  1962-04-10  1971-09-26  aarot101  aaronto01
+3       aasedo01      1954          9        8          USA         CA         Orange                                ...      Aase   Donald William    190     75    R      R  1977-07-26  1990-10-03  aased001   aasedo01
+4       abadan01      1972          8       25          USA         FL     Palm Beach                                ...      Abad    Fausto Andres    184     73    L      L  2001-09-10  2006-04-13  abada001   abadan01
+...          ...       ...        ...      ...          ...        ...            ...       ...        ...      ...  ...       ...              ...    ...    ...  ...    ...         ...         ...       ...        ...
+19612   zupofr01      1939          8       29          USA         CA  San Francisco      2005          3       25  ...      Zupo     Frank Joseph    182     71    L      R  1957-07-01  1961-05-09  zupof101   zupofr01
+19613  zuvelpa01      1958         10       31          USA         CA      San Mateo                                ...   Zuvella             Paul    173     72    R      R  1982-09-04  1991-05-02  zuvep001  zuvelpa01
+19614  zuverge01      1924          8       20          USA         MI        Holland      2014          9        8  ...  Zuverink           George    195     76    R      R  1951-04-21  1959-06-15  zuveg101  zuverge01
+19615  zwilldu01      1888         11        2          USA         MO      St. Louis      1978          3       27  ...  Zwilling  Edward Harrison    160     66    L      L  1910-08-14  1916-07-12  zwild101  zwilldu01
+19616   zychto01      1990          8        7          USA         IL          Monee                                ...      Zych    Anthony Aaron    190     75    R      R  2015-09-04  2017-08-19  zycht001   zychto01
+
+[19617 rows x 24 columns]
+1 rows are deleted. Table after delete: 
+        playerID birthYear birthMonth birthDay birthCountry birthState      birthCity deathYear deathMonth deathDay  ...  nameLast        nameGiven weight height bats throws       debut   finalGame   retroID    bbrefID
+0      aardsda01      1981         12       27          USA         CO         Denver                                ...   Aardsma      David Allan    215     75    R      R  2004-04-06  2015-08-23  aardd001  aardsda01
+1      aaronha01      1934          2        5          USA         AL         Mobile                                ...     Aaron      Henry Louis    180     72    R      R  1954-04-13  1976-10-03  aaroh101  aaronha01
+2      aaronto01      1939          8        5          USA         AL         Mobile      1984          8       16  ...     Aaron       Tommie Lee    190     75    R      R  1962-04-10  1971-09-26  aarot101  aaronto01
+3       aasedo01      1954          9        8          USA         CA         Orange                                ...      Aase   Donald William    190     75    R      R  1977-07-26  1990-10-03  aased001   aasedo01
+4       abadan01      1972          8       25          USA         FL     Palm Beach                                ...      Abad    Fausto Andres    184     73    L      L  2001-09-10  2006-04-13  abada001   abadan01
+...          ...       ...        ...      ...          ...        ...            ...       ...        ...      ...  ...       ...              ...    ...    ...  ...    ...         ...         ...       ...        ...
+19611  zupcibo01      1966          8       18          USA         PA     Pittsburgh                                ...    Zupcic           Robert    220     76    R      R  1991-09-07  1994-08-04  zupcb001  zupcibo01
+19612   zupofr01      1939          8       29          USA         CA  San Francisco      2005          3       25  ...      Zupo     Frank Joseph    182     71    L      R  1957-07-01  1961-05-09  zupof101   zupofr01
+19613  zuvelpa01      1958         10       31          USA         CA      San Mateo                                ...   Zuvella             Paul    173     72    R      R  1982-09-04  1991-05-02  zuvep001  zuvelpa01
+19614  zuverge01      1924          8       20          USA         MI        Holland      2014          9        8  ...  Zuverink           George    195     76    R      R  1951-04-21  1959-06-15  zuveg101  zuverge01
+19615  zwilldu01      1888         11        2          USA         MO      St. Louis      1978          3       27  ...  Zwilling  Edward Harrison    160     66    L      L  1910-08-14  1916-07-12  zwild101  zwilldu01
+
+[19616 rows x 24 columns]
+
+
+Process finished with exit code 0
+**********************************************
+test delete_by_key(): no matching record
+**********************************************
+Test name is: no matched record
+Key fields are: ['taverwi02']
+Table before delete: 
+        playerID birthYear birthMonth birthDay birthCountry birthState      birthCity deathYear deathMonth deathDay  ...  nameLast        nameGiven weight height bats throws       debut   finalGame   retroID    bbrefID
+0      aardsda01      1981         12       27          USA         CO         Denver                                ...   Aardsma      David Allan    215     75    R      R  2004-04-06  2015-08-23  aardd001  aardsda01
+1      aaronha01      1934          2        5          USA         AL         Mobile                                ...     Aaron      Henry Louis    180     72    R      R  1954-04-13  1976-10-03  aaroh101  aaronha01
+2      aaronto01      1939          8        5          USA         AL         Mobile      1984          8       16  ...     Aaron       Tommie Lee    190     75    R      R  1962-04-10  1971-09-26  aarot101  aaronto01
+3       aasedo01      1954          9        8          USA         CA         Orange                                ...      Aase   Donald William    190     75    R      R  1977-07-26  1990-10-03  aased001   aasedo01
+4       abadan01      1972          8       25          USA         FL     Palm Beach                                ...      Abad    Fausto Andres    184     73    L      L  2001-09-10  2006-04-13  abada001   abadan01
+...          ...       ...        ...      ...          ...        ...            ...       ...        ...      ...  ...       ...              ...    ...    ...  ...    ...         ...         ...       ...        ...
+19612   zupofr01      1939          8       29          USA         CA  San Francisco      2005          3       25  ...      Zupo     Frank Joseph    182     71    L      R  1957-07-01  1961-05-09  zupof101   zupofr01
+19613  zuvelpa01      1958         10       31          USA         CA      San Mateo                                ...   Zuvella             Paul    173     72    R      R  1982-09-04  1991-05-02  zuvep001  zuvelpa01
+19614  zuverge01      1924          8       20          USA         MI        Holland      2014          9        8  ...  Zuverink           George    195     76    R      R  1951-04-21  1959-06-15  zuveg101  zuverge01
+19615  zwilldu01      1888         11        2          USA         MO      St. Louis      1978          3       27  ...  Zwilling  Edward Harrison    160     66    L      L  1910-08-14  1916-07-12  zwild101  zwilldu01
+19616   zychto01      1990          8        7          USA         IL          Monee                                ...      Zych    Anthony Aaron    190     75    R      R  2015-09-04  2017-08-19  zycht001   zychto01
+
+[19617 rows x 24 columns]
+Exception: No matching record was found.
+
+
+Process finished with exit code 0
+************************************************
+delete_by_template: normal case
+***********************************************
+Test name is: normal case
+Template is : {'birthYear': '1981', 'birthMonth': '12'}
+Table before delete: 
+        playerID birthYear birthMonth birthDay birthCountry birthState      birthCity deathYear deathMonth deathDay  ...  nameLast        nameGiven weight height bats throws       debut   finalGame   retroID    bbrefID
+0      aardsda01      1981         12       27          USA         CO         Denver                                ...   Aardsma      David Allan    215     75    R      R  2004-04-06  2015-08-23  aardd001  aardsda01
+1      aaronha01      1934          2        5          USA         AL         Mobile                                ...     Aaron      Henry Louis    180     72    R      R  1954-04-13  1976-10-03  aaroh101  aaronha01
+2      aaronto01      1939          8        5          USA         AL         Mobile      1984          8       16  ...     Aaron       Tommie Lee    190     75    R      R  1962-04-10  1971-09-26  aarot101  aaronto01
+3       aasedo01      1954          9        8          USA         CA         Orange                                ...      Aase   Donald William    190     75    R      R  1977-07-26  1990-10-03  aased001   aasedo01
+4       abadan01      1972          8       25          USA         FL     Palm Beach                                ...      Abad    Fausto Andres    184     73    L      L  2001-09-10  2006-04-13  abada001   abadan01
+...          ...       ...        ...      ...          ...        ...            ...       ...        ...      ...  ...       ...              ...    ...    ...  ...    ...         ...         ...       ...        ...
+19612   zupofr01      1939          8       29          USA         CA  San Francisco      2005          3       25  ...      Zupo     Frank Joseph    182     71    L      R  1957-07-01  1961-05-09  zupof101   zupofr01
+19613  zuvelpa01      1958         10       31          USA         CA      San Mateo                                ...   Zuvella             Paul    173     72    R      R  1982-09-04  1991-05-02  zuvep001  zuvelpa01
+19614  zuverge01      1924          8       20          USA         MI        Holland      2014          9        8  ...  Zuverink           George    195     76    R      R  1951-04-21  1959-06-15  zuveg101  zuverge01
+19615  zwilldu01      1888         11        2          USA         MO      St. Louis      1978          3       27  ...  Zwilling  Edward Harrison    160     66    L      L  1910-08-14  1916-07-12  zwild101  zwilldu01
+19616   zychto01      1990          8        7          USA         IL          Monee                                ...      Zych    Anthony Aaron    190     75    R      R  2015-09-04  2017-08-19  zycht001   zychto01
+
+[19617 rows x 24 columns]
+17 rows are deleted. Table after delete: 
+        playerID birthYear birthMonth birthDay birthCountry birthState      birthCity deathYear deathMonth deathDay  ...  nameLast         nameGiven weight height bats throws       debut   finalGame   retroID    bbrefID
+0      aaronha01      1934          2        5          USA         AL         Mobile                                ...     Aaron       Henry Louis    180     72    R      R  1954-04-13  1976-10-03  aaroh101  aaronha01
+1      aaronto01      1939          8        5          USA         AL         Mobile      1984          8       16  ...     Aaron        Tommie Lee    190     75    R      R  1962-04-10  1971-09-26  aarot101  aaronto01
+2       aasedo01      1954          9        8          USA         CA         Orange                                ...      Aase    Donald William    190     75    R      R  1977-07-26  1990-10-03  aased001   aasedo01
+3       abadan01      1972          8       25          USA         FL     Palm Beach                                ...      Abad     Fausto Andres    184     73    L      L  2001-09-10  2006-04-13  abada001   abadan01
+4       abadfe01      1985         12       17         D.R.  La Romana      La Romana                                ...      Abad  Fernando Antonio    220     73    L      L  2010-07-28  2017-10-01  abadf001   abadfe01
+...          ...       ...        ...      ...          ...        ...            ...       ...        ...      ...  ...       ...               ...    ...    ...  ...    ...         ...         ...       ...        ...
+19595   zupofr01      1939          8       29          USA         CA  San Francisco      2005          3       25  ...      Zupo      Frank Joseph    182     71    L      R  1957-07-01  1961-05-09  zupof101   zupofr01
+19596  zuvelpa01      1958         10       31          USA         CA      San Mateo                                ...   Zuvella              Paul    173     72    R      R  1982-09-04  1991-05-02  zuvep001  zuvelpa01
+19597  zuverge01      1924          8       20          USA         MI        Holland      2014          9        8  ...  Zuverink            George    195     76    R      R  1951-04-21  1959-06-15  zuveg101  zuverge01
+19598  zwilldu01      1888         11        2          USA         MO      St. Louis      1978          3       27  ...  Zwilling   Edward Harrison    160     66    L      L  1910-08-14  1916-07-12  zwild101  zwilldu01
+19599   zychto01      1990          8        7          USA         IL          Monee                                ...      Zych     Anthony Aaron    190     75    R      R  2015-09-04  2017-08-19  zycht001   zychto01
+
+[19600 rows x 24 columns]
+
+
+Process finished with exit code 0
+************************************************
+delete_by_template: no matched record
+************************************************
+Test name is: no matching record
+Template is : {'playerID': 'aardsda01', 'birthYear': '1980'}
+Table before delete: 
+        playerID birthYear birthMonth birthDay birthCountry birthState      birthCity deathYear deathMonth deathDay  ...  nameLast        nameGiven weight height bats throws       debut   finalGame   retroID    bbrefID
+0      aardsda01      1981         12       27          USA         CO         Denver                                ...   Aardsma      David Allan    215     75    R      R  2004-04-06  2015-08-23  aardd001  aardsda01
+1      aaronha01      1934          2        5          USA         AL         Mobile                                ...     Aaron      Henry Louis    180     72    R      R  1954-04-13  1976-10-03  aaroh101  aaronha01
+2      aaronto01      1939          8        5          USA         AL         Mobile      1984          8       16  ...     Aaron       Tommie Lee    190     75    R      R  1962-04-10  1971-09-26  aarot101  aaronto01
+3       aasedo01      1954          9        8          USA         CA         Orange                                ...      Aase   Donald William    190     75    R      R  1977-07-26  1990-10-03  aased001   aasedo01
+4       abadan01      1972          8       25          USA         FL     Palm Beach                                ...      Abad    Fausto Andres    184     73    L      L  2001-09-10  2006-04-13  abada001   abadan01
+...          ...       ...        ...      ...          ...        ...            ...       ...        ...      ...  ...       ...              ...    ...    ...  ...    ...         ...         ...       ...        ...
+19612   zupofr01      1939          8       29          USA         CA  San Francisco      2005          3       25  ...      Zupo     Frank Joseph    182     71    L      R  1957-07-01  1961-05-09  zupof101   zupofr01
+19613  zuvelpa01      1958         10       31          USA         CA      San Mateo                                ...   Zuvella             Paul    173     72    R      R  1982-09-04  1991-05-02  zuvep001  zuvelpa01
+19614  zuverge01      1924          8       20          USA         MI        Holland      2014          9        8  ...  Zuverink           George    195     76    R      R  1951-04-21  1959-06-15  zuveg101  zuverge01
+19615  zwilldu01      1888         11        2          USA         MO      St. Louis      1978          3       27  ...  Zwilling  Edward Harrison    160     66    L      L  1910-08-14  1916-07-12  zwild101  zwilldu01
+19616   zychto01      1990          8        7          USA         IL          Monee                                ...      Zych    Anthony Aaron    190     75    R      R  2015-09-04  2017-08-19  zycht001   zychto01
+
+[19617 rows x 24 columns]
+Exception: No record was found by template.
+
+Process finished with exit code 0
+**************************************************
+update_by_key: normal case
+*************************************************
+Test name is: normal case
+Key fields are: ['aardsda01']
+New values are: {'birthYear': '1997', 'birthMonth': '6', 'birthDay': '3'}
+Table before update: 
+        playerID birthYear birthMonth birthDay birthCountry birthState      birthCity deathYear deathMonth deathDay  ...  nameLast        nameGiven weight height bats throws       debut   finalGame   retroID    bbrefID
+0      aardsda01      1981         12       27          USA         CO         Denver                                ...   Aardsma      David Allan    215     75    R      R  2004-04-06  2015-08-23  aardd001  aardsda01
+1      aaronha01      1934          2        5          USA         AL         Mobile                                ...     Aaron      Henry Louis    180     72    R      R  1954-04-13  1976-10-03  aaroh101  aaronha01
+2      aaronto01      1939          8        5          USA         AL         Mobile      1984          8       16  ...     Aaron       Tommie Lee    190     75    R      R  1962-04-10  1971-09-26  aarot101  aaronto01
+3       aasedo01      1954          9        8          USA         CA         Orange                                ...      Aase   Donald William    190     75    R      R  1977-07-26  1990-10-03  aased001   aasedo01
+4       abadan01      1972          8       25          USA         FL     Palm Beach                                ...      Abad    Fausto Andres    184     73    L      L  2001-09-10  2006-04-13  abada001   abadan01
+...          ...       ...        ...      ...          ...        ...            ...       ...        ...      ...  ...       ...              ...    ...    ...  ...    ...         ...         ...       ...        ...
+19612   zupofr01      1939          8       29          USA         CA  San Francisco      2005          3       25  ...      Zupo     Frank Joseph    182     71    L      R  1957-07-01  1961-05-09  zupof101   zupofr01
+19613  zuvelpa01      1958         10       31          USA         CA      San Mateo                                ...   Zuvella             Paul    173     72    R      R  1982-09-04  1991-05-02  zuvep001  zuvelpa01
+19614  zuverge01      1924          8       20          USA         MI        Holland      2014          9        8  ...  Zuverink           George    195     76    R      R  1951-04-21  1959-06-15  zuveg101  zuverge01
+19615  zwilldu01      1888         11        2          USA         MO      St. Louis      1978          3       27  ...  Zwilling  Edward Harrison    160     66    L      L  1910-08-14  1916-07-12  zwild101  zwilldu01
+19616   zychto01      1990          8        7          USA         IL          Monee                                ...      Zych    Anthony Aaron    190     75    R      R  2015-09-04  2017-08-19  zycht001   zychto01
+
+[19617 rows x 24 columns]
+1 rows are updated. Table after update: 
+        playerID birthYear birthMonth birthDay birthCountry birthState   birthCity deathYear deathMonth deathDay  ...  nameLast         nameGiven weight height bats throws       debut   finalGame   retroID    bbrefID
+0      aaronha01      1934          2        5          USA         AL      Mobile                                ...     Aaron       Henry Louis    180     72    R      R  1954-04-13  1976-10-03  aaroh101  aaronha01
+1      aaronto01      1939          8        5          USA         AL      Mobile      1984          8       16  ...     Aaron        Tommie Lee    190     75    R      R  1962-04-10  1971-09-26  aarot101  aaronto01
+2       aasedo01      1954          9        8          USA         CA      Orange                                ...      Aase    Donald William    190     75    R      R  1977-07-26  1990-10-03  aased001   aasedo01
+3       abadan01      1972          8       25          USA         FL  Palm Beach                                ...      Abad     Fausto Andres    184     73    L      L  2001-09-10  2006-04-13  abada001   abadan01
+4       abadfe01      1985         12       17         D.R.  La Romana   La Romana                                ...      Abad  Fernando Antonio    220     73    L      L  2010-07-28  2017-10-01  abadf001   abadfe01
+...          ...       ...        ...      ...          ...        ...         ...       ...        ...      ...  ...       ...               ...    ...    ...  ...    ...         ...         ...       ...        ...
+19612  zuvelpa01      1958         10       31          USA         CA   San Mateo                                ...   Zuvella              Paul    173     72    R      R  1982-09-04  1991-05-02  zuvep001  zuvelpa01
+19613  zuverge01      1924          8       20          USA         MI     Holland      2014          9        8  ...  Zuverink            George    195     76    R      R  1951-04-21  1959-06-15  zuveg101  zuverge01
+19614  zwilldu01      1888         11        2          USA         MO   St. Louis      1978          3       27  ...  Zwilling   Edward Harrison    160     66    L      L  1910-08-14  1916-07-12  zwild101  zwilldu01
+19615   zychto01      1990          8        7          USA         IL       Monee                                ...      Zych     Anthony Aaron    190     75    R      R  2015-09-04  2017-08-19  zycht001   zychto01
+19616  aardsda01      1997          6        3          USA         CO      Denver                                ...   Aardsma       David Allan    215     75    R      R  2004-04-06  2015-08-23  aardd001  aardsda01
+
+[19617 rows x 24 columns]
+
+
+Process finished with exit code 0
+*********************************************
+update_by_template: normal case
+*********************************************
+Test name is: normal case
+Template is : {'birthYear': '1981', 'birthMonth': '12'}
+New values are: {'birthYear': '1997', 'birthMonth': '6', 'birthDay': '3'}
+Table before update: 
+        playerID birthYear birthMonth birthDay birthCountry birthState      birthCity deathYear deathMonth deathDay  ...  nameLast        nameGiven weight height bats throws       debut   finalGame   retroID    bbrefID
+0      aardsda01      1981         12       27          USA         CO         Denver                                ...   Aardsma      David Allan    215     75    R      R  2004-04-06  2015-08-23  aardd001  aardsda01
+1      aaronha01      1934          2        5          USA         AL         Mobile                                ...     Aaron      Henry Louis    180     72    R      R  1954-04-13  1976-10-03  aaroh101  aaronha01
+2      aaronto01      1939          8        5          USA         AL         Mobile      1984          8       16  ...     Aaron       Tommie Lee    190     75    R      R  1962-04-10  1971-09-26  aarot101  aaronto01
+3       aasedo01      1954          9        8          USA         CA         Orange                                ...      Aase   Donald William    190     75    R      R  1977-07-26  1990-10-03  aased001   aasedo01
+4       abadan01      1972          8       25          USA         FL     Palm Beach                                ...      Abad    Fausto Andres    184     73    L      L  2001-09-10  2006-04-13  abada001   abadan01
+...          ...       ...        ...      ...          ...        ...            ...       ...        ...      ...  ...       ...              ...    ...    ...  ...    ...         ...         ...       ...        ...
+19612   zupofr01      1939          8       29          USA         CA  San Francisco      2005          3       25  ...      Zupo     Frank Joseph    182     71    L      R  1957-07-01  1961-05-09  zupof101   zupofr01
+19613  zuvelpa01      1958         10       31          USA         CA      San Mateo                                ...   Zuvella             Paul    173     72    R      R  1982-09-04  1991-05-02  zuvep001  zuvelpa01
+19614  zuverge01      1924          8       20          USA         MI        Holland      2014          9        8  ...  Zuverink           George    195     76    R      R  1951-04-21  1959-06-15  zuveg101  zuverge01
+19615  zwilldu01      1888         11        2          USA         MO      St. Louis      1978          3       27  ...  Zwilling  Edward Harrison    160     66    L      L  1910-08-14  1916-07-12  zwild101  zwilldu01
+19616   zychto01      1990          8        7          USA         IL          Monee                                ...      Zych    Anthony Aaron    190     75    R      R  2015-09-04  2017-08-19  zycht001   zychto01
+
+[19617 rows x 24 columns]
+17 rows are updated. Table after update: 
+        playerID birthYear birthMonth birthDay birthCountry        birthState    birthCity deathYear deathMonth deathDay  ...  nameLast          nameGiven weight height bats throws       debut   finalGame   retroID    bbrefID
+0      aaronha01      1934          2        5          USA                AL       Mobile                                ...     Aaron        Henry Louis    180     72    R      R  1954-04-13  1976-10-03  aaroh101  aaronha01
+1      aaronto01      1939          8        5          USA                AL       Mobile      1984          8       16  ...     Aaron         Tommie Lee    190     75    R      R  1962-04-10  1971-09-26  aarot101  aaronto01
+2       aasedo01      1954          9        8          USA                CA       Orange                                ...      Aase     Donald William    190     75    R      R  1977-07-26  1990-10-03  aased001   aasedo01
+3       abadan01      1972          8       25          USA                FL   Palm Beach                                ...      Abad      Fausto Andres    184     73    L      L  2001-09-10  2006-04-13  abada001   abadan01
+4       abadfe01      1985         12       17         D.R.         La Romana    La Romana                                ...      Abad   Fernando Antonio    220     73    L      L  2010-07-28  2017-10-01  abadf001   abadfe01
+...          ...       ...        ...      ...          ...               ...          ...       ...        ...      ...  ...       ...                ...    ...    ...  ...    ...         ...         ...       ...        ...
+19612  narvech01      1997          6        3          USA                CO    Englewood                                ...  Narveson  Christopher Gregg    205     75    L      L  2006-09-08  2016-04-19  narvc001  narvech01
+19613  shielja02      1997          6        3          USA                CA      Newhall                                ...   Shields      James Anthony    210     75    R      R  2006-05-31  2018-09-25  shiej002  shielja02
+19614  snellch02      1997          6        3          USA                FL  North Miami                                ...  Snelling  Christopher Doyle    165     70    L      L  2002-05-25  2008-06-06  snelc001  snellch02
+19615  taverwi01      1997          6        3         D.R.  Hermanas Mirabal      Tenares                                ...   Taveras              Willy    180     72    R      R  2004-09-06  2010-05-15  tavew001  taverwi01
+19616  willije02      1997          6        3          USA                HI     Honolulu                                ...  Williams         Jerome Lee    260     75    R      R  2003-04-26  2016-09-26  willj003  willije01
+
+[19617 rows x 24 columns]
+
+
+Process finished with exit code 0
+********************************************
+insert: normal case
+********************************************
+Test name is: normal case
+New record is: {'playerID': 'yunqing01', 'birthCountry': 'China', 'birthState': 'Jiangxi', 'birthCity': 'Jian'}
+Table before insert: 
+        playerID birthYear birthMonth birthDay birthCountry birthState      birthCity deathYear deathMonth deathDay  ...  nameLast        nameGiven weight height bats throws       debut   finalGame   retroID    bbrefID
+0      aardsda01      1981         12       27          USA         CO         Denver                                ...   Aardsma      David Allan    215     75    R      R  2004-04-06  2015-08-23  aardd001  aardsda01
+1      aaronha01      1934          2        5          USA         AL         Mobile                                ...     Aaron      Henry Louis    180     72    R      R  1954-04-13  1976-10-03  aaroh101  aaronha01
+2      aaronto01      1939          8        5          USA         AL         Mobile      1984          8       16  ...     Aaron       Tommie Lee    190     75    R      R  1962-04-10  1971-09-26  aarot101  aaronto01
+3       aasedo01      1954          9        8          USA         CA         Orange                                ...      Aase   Donald William    190     75    R      R  1977-07-26  1990-10-03  aased001   aasedo01
+4       abadan01      1972          8       25          USA         FL     Palm Beach                                ...      Abad    Fausto Andres    184     73    L      L  2001-09-10  2006-04-13  abada001   abadan01
+...          ...       ...        ...      ...          ...        ...            ...       ...        ...      ...  ...       ...              ...    ...    ...  ...    ...         ...         ...       ...        ...
+19612   zupofr01      1939          8       29          USA         CA  San Francisco      2005          3       25  ...      Zupo     Frank Joseph    182     71    L      R  1957-07-01  1961-05-09  zupof101   zupofr01
+19613  zuvelpa01      1958         10       31          USA         CA      San Mateo                                ...   Zuvella             Paul    173     72    R      R  1982-09-04  1991-05-02  zuvep001  zuvelpa01
+19614  zuverge01      1924          8       20          USA         MI        Holland      2014          9        8  ...  Zuverink           George    195     76    R      R  1951-04-21  1959-06-15  zuveg101  zuverge01
+19615  zwilldu01      1888         11        2          USA         MO      St. Louis      1978          3       27  ...  Zwilling  Edward Harrison    160     66    L      L  1910-08-14  1916-07-12  zwild101  zwilldu01
+19616   zychto01      1990          8        7          USA         IL          Monee                                ...      Zych    Anthony Aaron    190     75    R      R  2015-09-04  2017-08-19  zycht001   zychto01
+
+[19617 rows x 24 columns]
+Table after insert: 
+        playerID birthYear birthMonth birthDay birthCountry birthState   birthCity deathYear deathMonth deathDay  ...  nameLast        nameGiven weight height  bats throws       debut   finalGame   retroID    bbrefID
+0      aardsda01      1981         12       27          USA         CO      Denver                                ...   Aardsma      David Allan    215     75     R      R  2004-04-06  2015-08-23  aardd001  aardsda01
+1      aaronha01      1934          2        5          USA         AL      Mobile                                ...     Aaron      Henry Louis    180     72     R      R  1954-04-13  1976-10-03  aaroh101  aaronha01
+2      aaronto01      1939          8        5          USA         AL      Mobile      1984          8       16  ...     Aaron       Tommie Lee    190     75     R      R  1962-04-10  1971-09-26  aarot101  aaronto01
+3       aasedo01      1954          9        8          USA         CA      Orange                                ...      Aase   Donald William    190     75     R      R  1977-07-26  1990-10-03  aased001   aasedo01
+4       abadan01      1972          8       25          USA         FL  Palm Beach                                ...      Abad    Fausto Andres    184     73     L      L  2001-09-10  2006-04-13  abada001   abadan01
+...          ...       ...        ...      ...          ...        ...         ...       ...        ...      ...  ...       ...              ...    ...    ...   ...    ...         ...         ...       ...        ...
+19613  zuvelpa01      1958         10       31          USA         CA   San Mateo                                ...   Zuvella             Paul    173     72     R      R  1982-09-04  1991-05-02  zuvep001  zuvelpa01
+19614  zuverge01      1924          8       20          USA         MI     Holland      2014          9        8  ...  Zuverink           George    195     76     R      R  1951-04-21  1959-06-15  zuveg101  zuverge01
+19615  zwilldu01      1888         11        2          USA         MO   St. Louis      1978          3       27  ...  Zwilling  Edward Harrison    160     66     L      L  1910-08-14  1916-07-12  zwild101  zwilldu01
+19616   zychto01      1990          8        7          USA         IL       Monee                                ...      Zych    Anthony Aaron    190     75     R      R  2015-09-04  2017-08-19  zycht001   zychto01
+19617  yunqing01      None       None     None        China    Jiangxi        Jian      None       None     None  ...      None             None   None   None  None   None        None        None      None       None
+
+[19618 rows x 24 columns]
+
+
+Process finished with exit code 0
+******************************************
+insert£ºlack of primary key
+******************************************
+Test name is: Lack of primary key
+New record is: {'birthCountry': 'China', 'birthState': 'Jiangxi', 'birthCity': 'Jian'}
+Table before insert: 
+        playerID birthYear birthMonth birthDay birthCountry birthState      birthCity deathYear deathMonth deathDay  ...  nameLast        nameGiven weight height bats throws       debut   finalGame   retroID    bbrefID
+0      aardsda01      1981         12       27          USA         CO         Denver                                ...   Aardsma      David Allan    215     75    R      R  2004-04-06  2015-08-23  aardd001  aardsda01
+1      aaronha01      1934          2        5          USA         AL         Mobile                                ...     Aaron      Henry Louis    180     72    R      R  1954-04-13  1976-10-03  aaroh101  aaronha01
+2      aaronto01      1939          8        5          USA         AL         Mobile      1984          8       16  ...     Aaron       Tommie Lee    190     75    R      R  1962-04-10  1971-09-26  aarot101  aaronto01
+3       aasedo01      1954          9        8          USA         CA         Orange                                ...      Aase   Donald William    190     75    R      R  1977-07-26  1990-10-03  aased001   aasedo01
+4       abadan01      1972          8       25          USA         FL     Palm Beach                                ...      Abad    Fausto Andres    184     73    L      L  2001-09-10  2006-04-13  abada001   abadan01
+...          ...       ...        ...      ...          ...        ...            ...       ...        ...      ...  ...       ...              ...    ...    ...  ...    ...         ...         ...       ...        ...
+19612   zupofr01      1939          8       29          USA         CA  San Francisco      2005          3       25  ...      Zupo     Frank Joseph    182     71    L      R  1957-07-01  1961-05-09  zupof101   zupofr01
+19613  zuvelpa01      1958         10       31          USA         CA      San Mateo                                ...   Zuvella             Paul    173     72    R      R  1982-09-04  1991-05-02  zuvep001  zuvelpa01
+19614  zuverge01      1924          8       20          USA         MI        Holland      2014          9        8  ...  Zuverink           George    195     76    R      R  1951-04-21  1959-06-15  zuveg101  zuverge01
+19615  zwilldu01      1888         11        2          USA         MO      St. Louis      1978          3       27  ...  Zwilling  Edward Harrison    160     66    L      L  1910-08-14  1916-07-12  zwild101  zwilldu01
+19616   zychto01      1990          8        7          USA         IL          Monee                                ...      Zych    Anthony Aaron    190     75    R      R  2015-09-04  2017-08-19  zycht001   zychto01
+
+[19617 rows x 24 columns]
+Exception: Lack of some primary keys!
+
+
+Process finished with exit code 0
+
+*********************************************
+insert: unmatched key
+*********************************************
+Test name is: unmatched key
+New record is: {'playerID': 'yunqing01', 'birthTime': '03-15-AM'}
+Table before insert: 
+        playerID birthYear birthMonth birthDay birthCountry birthState      birthCity deathYear deathMonth deathDay  ...  nameLast        nameGiven weight height bats throws       debut   finalGame   retroID    bbrefID
+0      aardsda01      1981         12       27          USA         CO         Denver                                ...   Aardsma      David Allan    215     75    R      R  2004-04-06  2015-08-23  aardd001  aardsda01
+1      aaronha01      1934          2        5          USA         AL         Mobile                                ...     Aaron      Henry Louis    180     72    R      R  1954-04-13  1976-10-03  aaroh101  aaronha01
+2      aaronto01      1939          8        5          USA         AL         Mobile      1984          8       16  ...     Aaron       Tommie Lee    190     75    R      R  1962-04-10  1971-09-26  aarot101  aaronto01
+3       aasedo01      1954          9        8          USA         CA         Orange                                ...      Aase   Donald William    190     75    R      R  1977-07-26  1990-10-03  aased001   aasedo01
+4       abadan01      1972          8       25          USA         FL     Palm Beach                                ...      Abad    Fausto Andres    184     73    L      L  2001-09-10  2006-04-13  abada001   abadan01
+...          ...       ...        ...      ...          ...        ...            ...       ...        ...      ...  ...       ...              ...    ...    ...  ...    ...         ...         ...       ...        ...
+19612   zupofr01      1939          8       29          USA         CA  San Francisco      2005          3       25  ...      Zupo     Frank Joseph    182     71    L      R  1957-07-01  1961-05-09  zupof101   zupofr01
+19613  zuvelpa01      1958         10       31          USA         CA      San Mateo                                ...   Zuvella             Paul    173     72    R      R  1982-09-04  1991-05-02  zuvep001  zuvelpa01
+19614  zuverge01      1924          8       20          USA         MI        Holland      2014          9        8  ...  Zuverink           George    195     76    R      R  1951-04-21  1959-06-15  zuveg101  zuverge01
+19615  zwilldu01      1888         11        2          USA         MO      St. Louis      1978          3       27  ...  Zwilling  Edward Harrison    160     66    L      L  1910-08-14  1916-07-12  zwild101  zwilldu01
+19616   zychto01      1990          8        7          USA         IL          Monee                                ...      Zych    Anthony Aaron    190     75    R      R  2015-09-04  2017-08-19  zycht001   zychto01
+
+[19617 rows x 24 columns]
+Exception: Unmatched keys found!
+
+
+Process finished with exit code 0
+*********************************************
+insert: record existed
+*********************************************
+Test name is: Record existed
+New record is: {'playerID': 'aaronha01'}
+Table before insert: 
+        playerID birthYear birthMonth birthDay birthCountry birthState      birthCity deathYear deathMonth deathDay  ...  nameLast        nameGiven weight height bats throws       debut   finalGame   retroID    bbrefID
+0      aardsda01      1981         12       27          USA         CO         Denver                                ...   Aardsma      David Allan    215     75    R      R  2004-04-06  2015-08-23  aardd001  aardsda01
+1      aaronha01      1934          2        5          USA         AL         Mobile                                ...     Aaron      Henry Louis    180     72    R      R  1954-04-13  1976-10-03  aaroh101  aaronha01
+2      aaronto01      1939          8        5          USA         AL         Mobile      1984          8       16  ...     Aaron       Tommie Lee    190     75    R      R  1962-04-10  1971-09-26  aarot101  aaronto01
+3       aasedo01      1954          9        8          USA         CA         Orange                                ...      Aase   Donald William    190     75    R      R  1977-07-26  1990-10-03  aased001   aasedo01
+4       abadan01      1972          8       25          USA         FL     Palm Beach                                ...      Abad    Fausto Andres    184     73    L      L  2001-09-10  2006-04-13  abada001   abadan01
+...          ...       ...        ...      ...          ...        ...            ...       ...        ...      ...  ...       ...              ...    ...    ...  ...    ...         ...         ...       ...        ...
+19612   zupofr01      1939          8       29          USA         CA  San Francisco      2005          3       25  ...      Zupo     Frank Joseph    182     71    L      R  1957-07-01  1961-05-09  zupof101   zupofr01
+19613  zuvelpa01      1958         10       31          USA         CA      San Mateo                                ...   Zuvella             Paul    173     72    R      R  1982-09-04  1991-05-02  zuvep001  zuvelpa01
+19614  zuverge01      1924          8       20          USA         MI        Holland      2014          9        8  ...  Zuverink           George    195     76    R      R  1951-04-21  1959-06-15  zuveg101  zuverge01
+19615  zwilldu01      1888         11        2          USA         MO      St. Louis      1978          3       27  ...  Zwilling  Edward Harrison    160     66    L      L  1910-08-14  1916-07-12  zwild101  zwilldu01
+19616   zychto01      1990          8        7          USA         IL          Monee                                ...      Zych    Anthony Aaron    190     75    R      R  2015-09-04  2017-08-19  zycht001   zychto01
+
+[19617 rows x 24 columns]
+Exception: The record already exists, please update it.
+
+
+Process finished with exit code 0
+**********************************************
+test Batting.csv  (show the test result of some of the functions)
+***********************************************
+load
+***********************************************
+C:\Users\Admin\.conda\envs\HW1_Template\python.exe H:/M.S._2019Fall/Database/HW_Assignments/HW1_Template/tests/csv_table_tests.py
+DEBUG:root:CSVDataTable.__init__: data = {
+  "table_name": "Batting.csv",
+  "connect_info": {
+    "directory": "H:\\M.S._2019Fall\\Database\\HW_Assignments\\HW1_Template\\Data\\Baseball",
+    "file_name": "Batting.csv"
+  },
+  "key_columns": [
+    "playerID"
+  ],
+  "debug": true
+}
+DEBUG:root:CSVDataTable._load: Loaded 105861 rows
+Created table = CSVDataTable: config data = 
+{
+  "table_name": "Batting.csv",
+  "connect_info": {
+    "directory": "H:\\M.S._2019Fall\\Database\\HW_Assignments\\HW1_Template\\Data\\Baseball",
+    "file_name": "Batting.csv"
+  },
+  "key_columns": [
+    "playerID"
+  ],
+  "debug": true
+}
+Some Rows: = 
+     playerID yearID stint teamID lgID    G   AB    R    H   2B  ...  RBI   SB   CS   BB   SO  IBB  HBP   SH   SF GIDP
+0   abercda01   1871     1    TRO   NA    1    4    0    0    0  ...    0    0    0    0    0                        0
+1    addybo01   1871     1    RC1   NA   25  118   30   32    6  ...   13    8    1    4    0                        0
+2   allisar01   1871     1    CL1   NA   29  137   28   40    4  ...   19    3    1    2    5                        1
+3   allisdo01   1871     1    WS3   NA   27  133   28   44   10  ...   27    1    1    0    2                        0
+4   ansonca01   1871     1    RC1   NA   25  120   29   39   11  ...   16    6    2    2    1                        0
+5         ***    ***   ***    ***  ***  ***  ***  ***  ***  ***  ...  ***  ***  ***  ***  ***  ***  ***  ***  ***  ***
+6         ***    ***   ***    ***  ***  ***  ***  ***  ***  ***  ...  ***  ***  ***  ***  ***  ***  ***  ***  ***  ***
+7   zieglbr01   2018     2    ARI   NL   29    0    0    0    0  ...    0    0    0    0    0    0    0    0    0    0
+8   zimmebr01   2018     1    CLE   AL   34  106   14   24    5  ...    9    4    1    7   44    0    1    0    0    1
+9   zimmejo02   2018     1    DET   AL   25    2    0    0    0  ...    0    0    0    0    2    0    0    0    0    0
+10  zimmery01   2018     1    WAS   NL   85  288   33   76   21  ...   51    1    1   30   55    1    3    0    2   10
+11  zobribe01   2018     1    CHN   NL  139  455   67  139   28  ...   58    3    4   55   60    1    2    1    7    8
+
+[12 rows x 22 columns]
+
+Process finished with exit code 0
+******************************************************
+find_by_template: normal case
+******************************************************
+Test name is: normal case
+Template is : {'yearID': '1871', 'stint': '1'}
+The query result is: 
+      playerID yearID stint teamID lgID   G   AB   R   H  2B  ... RBI  SB CS  BB SO IBB HBP SH SF GIDP
+0    abercda01   1871     1    TRO   NA   1    4   0   0   0  ...   0   0  0   0  0                  0
+1     addybo01   1871     1    RC1   NA  25  118  30  32   6  ...  13   8  1   4  0                  0
+2    allisar01   1871     1    CL1   NA  29  137  28  40   4  ...  19   3  1   2  5                  1
+3    allisdo01   1871     1    WS3   NA  27  133  28  44  10  ...  27   1  1   0  2                  0
+4    ansonca01   1871     1    RC1   NA  25  120  29  39  11  ...  16   6  2   2  1                  0
+..         ...    ...   ...    ...  ...  ..  ...  ..  ..  ..  ...  ..  .. ..  .. ..  ..  .. .. ..  ...
+110   woodji01   1871     1    CH1   NA  28  135  45  51  10  ...  29  18  2  11  3                  0
+111  wrighge01   1871     1    BS1   NA  16   80  33  33   7  ...  11   9  1   6  1                  1
+112  wrighha01   1871     1    BS1   NA  31  147  42  44   5  ...  26   7  1  13  2                  0
+113   yorkto01   1871     1    TRO   NA  29  145  36  37   5  ...  23   2  2   9  1                  0
+114  zettlge01   1871     1    CH1   NA  28  128  23  32   3  ...  18   4  0   2  4                  0
+
+[115 rows x 22 columns]
+
+
+Process finished with exit code 0
+************************************************
+find_by_primary_key: normal case with given field list
+************************************************
+Test name is: field list is not none
+Key fields are:['abercda01']
+Field list is: ['yearID', 'stint']
+The query result is:   yearID stint
+0   1871     1
+
+
+Process finished with exit code 0

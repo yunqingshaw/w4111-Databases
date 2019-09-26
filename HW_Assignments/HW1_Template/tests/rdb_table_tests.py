@@ -34,7 +34,7 @@ def t_find_by_primary_key(table, t_name, key_fields, field_list=None):
     s += "Field list is: " + str(field_list) + "\n"
     try:
         result = table.find_by_primary_key(key_fields, field_list)
-        s += "The query result is: " + str(result) + "\n"
+        s += "The query result is: " + str(pd.DataFrame(result)) + "\n"
     except Exception as e:
         s += "Exception: " + str(e) + "\n"
     print(s)
@@ -115,12 +115,15 @@ def t_insert(table, t_name, new_record):
     print(s)
 
 
-t_rdb = t_load("People", ["playerID"])
+t_rdb = t_load("people", ["playerID"])
 template_1 = {
         "birthYear": "1981",
         "birthMonth": "12"
-    }
-
+}
+# t_find_by_primary_key(t_rdb, "normal case", ["aardsda01"])
+t_find_by_primary_key(t_rdb, "unmatched primary keys", ["aardsda03"])
+# t_find_by_primary_key(t_rdb, "incorrect key numbers", ["aardsda01", "1981"])
+# t_find_by_primary_key(t_rdb, "given field_list", ["aardsda01"], ["playerID", "birthYear", "birthMonth"])
 # t_find_by_template(t_rdb, "normal case", template_1)
 
 template_2 = {
@@ -132,7 +135,7 @@ template_2 = {
 
 # t_delete_by_key(t_rdb, "normal case", ["zychto01"])
 # t_delete_by_key(t_rdb, "no matched record", ["taverwi02"])
-
+#
 # t_delete_by_template(t_rdb, "normal case", template_1)
 # t_delete_by_template(t_rdb, "no matching record", template_2)
 
@@ -166,7 +169,7 @@ new_record_3 = {
 new_record_4 = {
     "playerID": "aaronha01"
 }
-t_insert(t_rdb, "normal case", new_record_1)
-t_insert(t_rdb, "Lack of primary key", new_record_2)
-t_insert(t_rdb, "unmatched key", new_record_3)
-t_insert(t_rdb, "Record existed", new_record_4)
+# t_insert(t_rdb, "normal case", new_record_1)
+# t_insert(t_rdb, "Lack of primary key", new_record_2)
+# t_insert(t_rdb, "unmatched key", new_record_3)
+# t_insert(t_rdb, "Record existed", new_record_4)

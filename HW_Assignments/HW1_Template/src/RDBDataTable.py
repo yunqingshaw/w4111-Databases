@@ -26,6 +26,11 @@ class RDBDataTable(BaseDataTable):
                                     cursorclass=pymysql.cursors.DictCursor)
         self._cur = self._cnx.cursor()
         self._key_columns = key_columns
+        # self._cur.execute("select TOP 1 * from " + self._table_name)
+        # self._row = self._cur.fetchall()
+        self._cur.execute("select * from " + self._table_name)
+        self._rows = self._cur.fetchall()
+        self._keys = self._rows[0]
 
     def find_by_primary_key(self, key_fields, field_list=None):
         """
@@ -206,7 +211,22 @@ class RDBDataTable(BaseDataTable):
         :param new_record: A dictionary representing a row to add to the set of records.
         :return: None
         """
+        for key in new_record.keys():
+            if key not in self._keys:
+                raise Exception("Unmatched keys found!")
 
+        for key in self._key_columns:
+            if key not in new_record.keys():
+                raise Exception("Lack of some primary keys!")
+
+        keys = []
+        for key, value in new_record.items():
+            if key in self._key_columns:
+                keys.append(key)
+        for key in keys:
+            for row in self._rows:
+                if new_record[key] == row[key]:
+                    raise Exception("The record already exists, please update it.")
         sql = "INSERT INTO " + str(self._table_name)
         index = 0
         sql += " ("
@@ -226,9 +246,10 @@ class RDBDataTable(BaseDataTable):
         self._cur.execute(sql)
 
     def get_rows(self):
-        sql = "select * from " + self._table_name
-        res = self._cur.execute(sql)
-        return self._cur.fetchall()
+        # sql = "select * from " + self._table_name
+        # res = self._cur.execute(sql)
+        # return self._cur.fetchall()
+        return self._rows
 
 
 

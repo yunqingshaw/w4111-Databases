@@ -34,7 +34,7 @@ def t_find_by_primary_key(table, t_name, key_fields, field_list=None):
     s += "Field list is: " + str(field_list) + "\n"
     try:
         result = table.find_by_primary_key(key_fields, field_list)
-        s += "The query result is: " + str(result) + "\n"
+        s += "The query result is: " + str(pd.DataFrame(result)) + "\n"
     except Exception as e:
         s += "Exception: " + str(e) + "\n"
     print(s)
@@ -114,8 +114,8 @@ def t_insert(table, t_name, new_record):
         s += "Exception: " + str(e) + "\n"
     print(s)
 
-t_csv = t_load("People.csv", ["playerID"])
-
+# t_csv = t_load("People.csv", ["playerID"])
+#
 # t_find_by_primary_key(t_csv, "normal case", ["aardsda01"])
 # t_find_by_primary_key(t_csv, "incorrect key numbers", ["aardsda01", "1981"])
 # t_find_by_primary_key(t_csv, "no matching record", ["aardsda02"])
@@ -125,21 +125,24 @@ template_1 = {
         "birthYear": "1981",
         "birthMonth": "12"
     }
+template_3 = {
+    "yearID": "1871",
+    "stint": "1"
+}
+# t_find_by_template(t_csv, "normal case", template_1)
 
-#t_find_by_template(t_csv, "normal case", template_1)
-
-# template_2 = {
-#         "playerID": "aardsda01",
-#         "birthYear": "1980"
-# }
-
+template_2 = {
+        "playerID": "aardsda01",
+        "birthYear": "1980"
+}
+field_list_1 = ["birthYear", "birthMonth", "birthDay"]
 # t_find_by_template(t_csv, "unmatched field", template_2)
-
+# t_find_by_template(t_csv, "given field_list", template_1, field_list_1)
 # t_delete_by_key(t_csv, "normal case", ["zychto01"])
 # t_delete_by_key(t_csv, "no matched record", ["taverwi02"])
 
-# t_delete_by_template(t_csv, "normal case", template_1)
-# t_delete_by_template(t_csv, "no matching record", template_2)
+#t_delete_by_template(t_csv, "normal case", template_1)
+#t_delete_by_template(t_csv, "no matching record", template_2)
 
 new_values_1 = {
     "birthYear": "1997",
@@ -171,7 +174,11 @@ new_record_3 = {
 new_record_4 = {
     "playerID": "aaronha01"
 }
-t_insert(t_csv, "normal case", new_record_1)
-t_insert(t_csv, "Lack of primary key", new_record_2)
-t_insert(t_csv, "unmatched key", new_record_3)
-t_insert(t_csv, "Record existed", new_record_4)
+# t_insert(t_csv, "normal case", new_record_1)
+# t_insert(t_csv, "Lack of primary key", new_record_2)
+# t_insert(t_csv, "unmatched key", new_record_3)
+# t_insert(t_csv, "Record existed", new_record_4)
+
+t_csv_1 = t_load("Batting.csv", ["playerID"])
+# t_find_by_template(t_csv_1, "normal case", template_3)
+t_find_by_primary_key(t_csv_1, "field list is not none", ["abercda01"], ["yearID", "stint"])

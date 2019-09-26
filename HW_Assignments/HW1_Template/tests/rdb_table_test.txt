@@ -1,0 +1,364 @@
+test People
+***********************************
+load
+***********************************
+C:\Users\Admin\.conda\envs\HW1_Template\python.exe H:/M.S._2019Fall/Database/HW_Assignments/HW1_Template/tests/rdb_table_tests.py
+Created table = 
+        playerID  birthYear  birthMonth  ...   finalGame   retroID    bbrefID
+0      aardsda01       1981          12  ...  2015-08-23  aardd001  aardsda01
+1      aaronha01       1934           2  ...  1976-10-03  aaroh101  aaronha01
+2      aaronto01       1939           8  ...  1971-09-26  aarot101  aaronto01
+3       aasedo01       1954           9  ...  1990-10-03  aased001   aasedo01
+4       abadan01       1972           8  ...  2006-04-13  abada001   abadan01
+...          ...        ...         ...  ...         ...       ...        ...
+19034  asbelji01       1914           6  ...  1938-10-02  asbej101  asbelji01
+19035  asbjoca01       1909           6  ...  1932-08-31  asbjc101  asbjoca01
+19036  ascanjo01       1985           5  ...  2011-06-05  ascaj001  ascanjo01
+19037  ascheco01       1990           6  ...  2017-05-12  aschc001  ascheco01
+19038  asencmi01       1980           9  ...  2006-04-29  asenm001  asencmi01
+
+[19039 rows x 24 columns]
+**************************************
+find_by_primary_key: normal case
+**************************************
+Test name is: normal case
+Key fields are:['aardsda01']
+Field list is: None
+The query result is:     playerID  birthYear  birthMonth  ...   finalGame   retroID    bbrefID
+0  aardsda01       1981          12  ...  2015-08-23  aardd001  aardsda01
+
+[1 rows x 24 columns]
+***************************************¡¢
+find_by_primary_key: unmatched primary keys
+***************************************
+Test name is: unmatched primary keys
+Key fields are:['aardsda03']
+Field list is: None
+Exception: No matching record was found.
+
+
+Process finished with exit code 0
+***************************************
+find_by_primary_key: give incorrect key numbers
+***************************************
+Test name is: incorrect key numbers
+Key fields are:['aardsda01', '1981']
+Field list is: None
+Exception: 1 key fields are expected!
+***************************************
+find_by_primary_key: give field list
+***************************************
+Test name is: given field_list
+Key fields are:['aardsda01']
+Field list is: ['playerID', 'birthYear', 'birthMonth']
+The query result is:     playerID  birthYear  birthMonth
+0  aardsda01       1981          12
+
+***************************************
+find_by_template: normal case
+***************************************
+Test name is: normal case
+Template is : {'birthYear': '1981', 'birthMonth': '12'}
+The query result is: 
+    playerID  birthYear  birthMonth  ...   finalGame   retroID    bbrefID
+0  aardsda01       1981          12  ...  2015-08-23  aardd001  aardsda01
+1  accarje01       1981          12  ...  2012-09-27  accaj001  accarje01
+2  castoko01       1981          12  ...  2008-09-28  castk001  castoko01
+3  colinal01       1981          12  ...  2006-09-24  colia001  colinal01
+4  costash01       1981          12  ...  2007-09-30  costs001  costash01
+5   diazvi01       1981          12  ...  2007-07-07  diazv001   diazvi01
+
+[6 rows x 24 columns]
+
+****************************************
+find_by_template: unmatched field
+****************************************
+Test name is: unmatched field
+Template is : {'playerID': 'aardsda01', 'birthYear': '1980'}
+Exception: No matching record was found.
+
+
+Process finished with exit code 0
+***************************************
+delete_by_key: normal case
+***************************************
+Test name is: normal case
+Key fields are: ['zychto01']
+Table before delete: 
+       playerID  birthYear  birthMonth  ...   finalGame   retroID    bbrefID
+0     aardsda01       1981          12  ...  2015-08-23  aardd001  aardsda01
+1     aaronha01       1934           2  ...  1976-10-03  aaroh101  aaronha01
+2     aaronto01       1939           8  ...  1971-09-26  aarot101  aaronto01
+3      aasedo01       1954           9  ...  1990-10-03  aased001   aasedo01
+4      abadan01       1972           8  ...  2006-04-13  abada001   abadan01
+...         ...        ...         ...  ...         ...       ...        ...
+5564  friedbo01       1906           8  ...  1932-05-21  frieb104  friedbo01
+5565  friedch01       1987           7  ...  2016-09-29  friec001  friedch01
+5566  friedcy01       1897           7  ...  1920-09-23  friec101  friedcy01
+5567  friedma01       1994           1  ...  2018-09-30  friem001  friedma01
+5568  frielbi01       1876           4  ...  1903-09-13  frieb103  frielbi01
+
+[5569 rows x 24 columns]
+Exception: No matching record was found.
+***************************************
+delete_by_key: no matched record
+***************************************
+Test name is: no matched record
+Key fields are: ['taverwi02']
+Table before delete: 
+       playerID  birthYear  birthMonth  ...   finalGame   retroID    bbrefID
+0     aardsda01       1981          12  ...  2015-08-23  aardd001  aardsda01
+1     aaronha01       1934           2  ...  1976-10-03  aaroh101  aaronha01
+2     aaronto01       1939           8  ...  1971-09-26  aarot101  aaronto01
+3      aasedo01       1954           9  ...  1990-10-03  aased001   aasedo01
+4      abadan01       1972           8  ...  2006-04-13  abada001   abadan01
+...         ...        ...         ...  ...         ...       ...        ...
+5564  friedbo01       1906           8  ...  1932-05-21  frieb104  friedbo01
+5565  friedch01       1987           7  ...  2016-09-29  friec001  friedch01
+5566  friedcy01       1897           7  ...  1920-09-23  friec101  friedcy01
+5567  friedma01       1994           1  ...  2018-09-30  friem001  friedma01
+5568  frielbi01       1876           4  ...  1903-09-13  frieb103  frielbi01
+
+[5569 rows x 24 columns]
+Exception: No matching record was found.
+
+
+Process finished with exit code 0
+***************************************
+delete_by_template: normal case
+***************************************
+Test name is: normal case
+Template is : {'birthYear': '1981', 'birthMonth': '12'}
+Table before delete: 
+       playerID  birthYear  birthMonth  ...   finalGame   retroID    bbrefID
+0     aardsda01       1981          12  ...  2015-08-23  aardd001  aardsda01
+1     aaronha01       1934           2  ...  1976-10-03  aaroh101  aaronha01
+2     aaronto01       1939           8  ...  1971-09-26  aarot101  aaronto01
+3      aasedo01       1954           9  ...  1990-10-03  aased001   aasedo01
+4      abadan01       1972           8  ...  2006-04-13  abada001   abadan01
+...         ...        ...         ...  ...         ...       ...        ...
+5564  friedbo01       1906           8  ...  1932-05-21  frieb104  friedbo01
+5565  friedch01       1987           7  ...  2016-09-29  friec001  friedch01
+5566  friedcy01       1897           7  ...  1920-09-23  friec101  friedcy01
+5567  friedma01       1994           1  ...  2018-09-30  friem001  friedma01
+5568  frielbi01       1876           4  ...  1903-09-13  frieb103  frielbi01
+
+[5569 rows x 24 columns]
+6 rows are deleted. Table after delete: 
+       playerID  birthYear  birthMonth  ...   finalGame   retroID    bbrefID
+0     aardsda01       1981          12  ...  2015-08-23  aardd001  aardsda01
+1     aaronha01       1934           2  ...  1976-10-03  aaroh101  aaronha01
+2     aaronto01       1939           8  ...  1971-09-26  aarot101  aaronto01
+3      aasedo01       1954           9  ...  1990-10-03  aased001   aasedo01
+4      abadan01       1972           8  ...  2006-04-13  abada001   abadan01
+...         ...        ...         ...  ...         ...       ...        ...
+5564  friedbo01       1906           8  ...  1932-05-21  frieb104  friedbo01
+5565  friedch01       1987           7  ...  2016-09-29  friec001  friedch01
+5566  friedcy01       1897           7  ...  1920-09-23  friec101  friedcy01
+5567  friedma01       1994           1  ...  2018-09-30  friem001  friedma01
+5568  frielbi01       1876           4  ...  1903-09-13  frieb103  frielbi01
+
+[5569 rows x 24 columns]
+***************************************
+delete_by_template: no matching record
+******************************************
+Test name is: no matching record
+Template is : {'playerID': 'aardsda01', 'birthYear': '1980'}
+Table before delete: 
+       playerID  birthYear  birthMonth  ...   finalGame   retroID    bbrefID
+0     aardsda01       1981          12  ...  2015-08-23  aardd001  aardsda01
+1     aaronha01       1934           2  ...  1976-10-03  aaroh101  aaronha01
+2     aaronto01       1939           8  ...  1971-09-26  aarot101  aaronto01
+3      aasedo01       1954           9  ...  1990-10-03  aased001   aasedo01
+4      abadan01       1972           8  ...  2006-04-13  abada001   abadan01
+...         ...        ...         ...  ...         ...       ...        ...
+5564  friedbo01       1906           8  ...  1932-05-21  frieb104  friedbo01
+5565  friedch01       1987           7  ...  2016-09-29  friec001  friedch01
+5566  friedcy01       1897           7  ...  1920-09-23  friec101  friedcy01
+5567  friedma01       1994           1  ...  2018-09-30  friem001  friedma01
+5568  frielbi01       1876           4  ...  1903-09-13  frieb103  frielbi01
+
+[5569 rows x 24 columns]
+Exception: No matching record was found.
+
+
+Process finished with exit code 0
+***************************************
+update_by_key: normal case
+*****************************************
+Test name is: normal case
+Key fields are: ['aaronha01']
+New values are: {'birthYear': '1997', 'birthMonth': '6', 'birthDay': '3'}
+Table before update: 
+       playerID  birthYear  birthMonth  ...   finalGame   retroID    bbrefID
+0     aardsda01       1981          12  ...  2015-08-23  aardd001  aardsda01
+1     aaronha01       1934           2  ...  1976-10-03  aaroh101  aaronha01
+2     aaronto01       1939           8  ...  1971-09-26  aarot101  aaronto01
+3      aasedo01       1954           9  ...  1990-10-03  aased001   aasedo01
+4      abadan01       1972           8  ...  2006-04-13  abada001   abadan01
+...         ...        ...         ...  ...         ...       ...        ...
+5564  friedbo01       1906           8  ...  1932-05-21  frieb104  friedbo01
+5565  friedch01       1987           7  ...  2016-09-29  friec001  friedch01
+5566  friedcy01       1897           7  ...  1920-09-23  friec101  friedcy01
+5567  friedma01       1994           1  ...  2018-09-30  friem001  friedma01
+5568  frielbi01       1876           4  ...  1903-09-13  frieb103  frielbi01
+
+[5569 rows x 24 columns]
+1 rows are updated. Table after update: 
+       playerID  birthYear  birthMonth  ...   finalGame   retroID    bbrefID
+0     aardsda01       1981          12  ...  2015-08-23  aardd001  aardsda01
+1     aaronha01       1934           2  ...  1976-10-03  aaroh101  aaronha01
+2     aaronto01       1939           8  ...  1971-09-26  aarot101  aaronto01
+3      aasedo01       1954           9  ...  1990-10-03  aased001   aasedo01
+4      abadan01       1972           8  ...  2006-04-13  abada001   abadan01
+...         ...        ...         ...  ...         ...       ...        ...
+5564  friedbo01       1906           8  ...  1932-05-21  frieb104  friedbo01
+5565  friedch01       1987           7  ...  2016-09-29  friec001  friedch01
+5566  friedcy01       1897           7  ...  1920-09-23  friec101  friedcy01
+5567  friedma01       1994           1  ...  2018-09-30  friem001  friedma01
+5568  frielbi01       1876           4  ...  1903-09-13  frieb103  frielbi01
+
+[5569 rows x 24 columns]
+
+
+Process finished with exit code 0
+****************************************
+update_by_template: normal case
+****************************************
+Test name is: normal case
+Template is : {'birthYear': '1981', 'birthMonth': '12'}
+New values are: {'birthYear': '1997', 'birthMonth': '6', 'birthDay': '3'}
+Table before update: 
+       playerID  birthYear  birthMonth  ...   finalGame   retroID    bbrefID
+0     aardsda01       1981          12  ...  2015-08-23  aardd001  aardsda01
+1     aaronha01       1934           2  ...  1976-10-03  aaroh101  aaronha01
+2     aaronto01       1939           8  ...  1971-09-26  aarot101  aaronto01
+3      aasedo01       1954           9  ...  1990-10-03  aased001   aasedo01
+4      abadan01       1972           8  ...  2006-04-13  abada001   abadan01
+...         ...        ...         ...  ...         ...       ...        ...
+5564  friedbo01       1906           8  ...  1932-05-21  frieb104  friedbo01
+5565  friedch01       1987           7  ...  2016-09-29  friec001  friedch01
+5566  friedcy01       1897           7  ...  1920-09-23  friec101  friedcy01
+5567  friedma01       1994           1  ...  2018-09-30  friem001  friedma01
+5568  frielbi01       1876           4  ...  1903-09-13  frieb103  frielbi01
+
+[5569 rows x 24 columns]
+6 rows are updated. Table after update: 
+       playerID  birthYear  birthMonth  ...   finalGame   retroID    bbrefID
+0     aardsda01       1981          12  ...  2015-08-23  aardd001  aardsda01
+1     aaronha01       1934           2  ...  1976-10-03  aaroh101  aaronha01
+2     aaronto01       1939           8  ...  1971-09-26  aarot101  aaronto01
+3      aasedo01       1954           9  ...  1990-10-03  aased001   aasedo01
+4      abadan01       1972           8  ...  2006-04-13  abada001   abadan01
+...         ...        ...         ...  ...         ...       ...        ...
+5564  friedbo01       1906           8  ...  1932-05-21  frieb104  friedbo01
+5565  friedch01       1987           7  ...  2016-09-29  friec001  friedch01
+5566  friedcy01       1897           7  ...  1920-09-23  friec101  friedcy01
+5567  friedma01       1994           1  ...  2018-09-30  friem001  friedma01
+5568  frielbi01       1876           4  ...  1903-09-13  frieb103  frielbi01
+
+[5569 rows x 24 columns]
+
+
+Process finished with exit code 0
+****************************************
+insert: normal case
+****************************************
+Test name is: normal case
+New record is: {'playerID': 'yunqing01', 'birthCountry': 'China', 'birthState': 'Jiangxi', 'birthCity': 'Jian'}
+Table before insert: 
+       playerID  birthYear  birthMonth  ...   finalGame   retroID    bbrefID
+0     aardsda01       1981          12  ...  2015-08-23  aardd001  aardsda01
+1     aaronha01       1934           2  ...  1976-10-03  aaroh101  aaronha01
+2     aaronto01       1939           8  ...  1971-09-26  aarot101  aaronto01
+3      aasedo01       1954           9  ...  1990-10-03  aased001   aasedo01
+4      abadan01       1972           8  ...  2006-04-13  abada001   abadan01
+...         ...        ...         ...  ...         ...       ...        ...
+5564  friedbo01       1906           8  ...  1932-05-21  frieb104  friedbo01
+5565  friedch01       1987           7  ...  2016-09-29  friec001  friedch01
+5566  friedcy01       1897           7  ...  1920-09-23  friec101  friedcy01
+5567  friedma01       1994           1  ...  2018-09-30  friem001  friedma01
+5568  frielbi01       1876           4  ...  1903-09-13  frieb103  frielbi01
+
+[5569 rows x 24 columns]
+Table after insert: 
+       playerID  birthYear  birthMonth  ...   finalGame   retroID    bbrefID
+0     aardsda01       1981          12  ...  2015-08-23  aardd001  aardsda01
+1     aaronha01       1934           2  ...  1976-10-03  aaroh101  aaronha01
+2     aaronto01       1939           8  ...  1971-09-26  aarot101  aaronto01
+3      aasedo01       1954           9  ...  1990-10-03  aased001   aasedo01
+4      abadan01       1972           8  ...  2006-04-13  abada001   abadan01
+...         ...        ...         ...  ...         ...       ...        ...
+5564  friedbo01       1906           8  ...  1932-05-21  frieb104  friedbo01
+5565  friedch01       1987           7  ...  2016-09-29  friec001  friedch01
+5566  friedcy01       1897           7  ...  1920-09-23  friec101  friedcy01
+5567  friedma01       1994           1  ...  2018-09-30  friem001  friedma01
+5568  frielbi01       1876           4  ...  1903-09-13  frieb103  frielbi01
+
+[5569 rows x 24 columns]
+**************************************
+insert: Lack of primary key
+*****************************************
+Test name is: Lack of primary key
+New record is: {'birthCountry': 'China', 'birthState': 'Jiangxi', 'birthCity': 'Jian'}
+Table before insert: 
+       playerID  birthYear  birthMonth  ...   finalGame   retroID    bbrefID
+0     aardsda01       1981          12  ...  2015-08-23  aardd001  aardsda01
+1     aaronha01       1934           2  ...  1976-10-03  aaroh101  aaronha01
+2     aaronto01       1939           8  ...  1971-09-26  aarot101  aaronto01
+3      aasedo01       1954           9  ...  1990-10-03  aased001   aasedo01
+4      abadan01       1972           8  ...  2006-04-13  abada001   abadan01
+...         ...        ...         ...  ...         ...       ...        ...
+5564  friedbo01       1906           8  ...  1932-05-21  frieb104  friedbo01
+5565  friedch01       1987           7  ...  2016-09-29  friec001  friedch01
+5566  friedcy01       1897           7  ...  1920-09-23  friec101  friedcy01
+5567  friedma01       1994           1  ...  2018-09-30  friem001  friedma01
+5568  frielbi01       1876           4  ...  1903-09-13  frieb103  frielbi01
+
+[5569 rows x 24 columns]
+Exception: Lack of some primary keys!
+*****************************************************
+insert: unmatched key
+****************************************************
+Test name is: unmatched key
+New record is: {'playerID': 'yunqing01', 'birthTime': '03-15-AM'}
+Table before insert: 
+       playerID  birthYear  birthMonth  ...   finalGame   retroID    bbrefID
+0     aardsda01       1981          12  ...  2015-08-23  aardd001  aardsda01
+1     aaronha01       1934           2  ...  1976-10-03  aaroh101  aaronha01
+2     aaronto01       1939           8  ...  1971-09-26  aarot101  aaronto01
+3      aasedo01       1954           9  ...  1990-10-03  aased001   aasedo01
+4      abadan01       1972           8  ...  2006-04-13  abada001   abadan01
+...         ...        ...         ...  ...         ...       ...        ...
+5564  friedbo01       1906           8  ...  1932-05-21  frieb104  friedbo01
+5565  friedch01       1987           7  ...  2016-09-29  friec001  friedch01
+5566  friedcy01       1897           7  ...  1920-09-23  friec101  friedcy01
+5567  friedma01       1994           1  ...  2018-09-30  friem001  friedma01
+5568  frielbi01       1876           4  ...  1903-09-13  frieb103  frielbi01
+
+[5569 rows x 24 columns]
+Exception: Unmatched keys found!
+*******************************************
+insert: Record existed
+**********************************************
+Test name is: Record existed
+New record is: {'playerID': 'aaronha01'}
+Table before insert: 
+       playerID  birthYear  birthMonth  ...   finalGame   retroID    bbrefID
+0     aardsda01       1981          12  ...  2015-08-23  aardd001  aardsda01
+1     aaronha01       1934           2  ...  1976-10-03  aaroh101  aaronha01
+2     aaronto01       1939           8  ...  1971-09-26  aarot101  aaronto01
+3      aasedo01       1954           9  ...  1990-10-03  aased001   aasedo01
+4      abadan01       1972           8  ...  2006-04-13  abada001   abadan01
+...         ...        ...         ...  ...         ...       ...        ...
+5564  friedbo01       1906           8  ...  1932-05-21  frieb104  friedbo01
+5565  friedch01       1987           7  ...  2016-09-29  friec001  friedch01
+5566  friedcy01       1897           7  ...  1920-09-23  friec101  friedcy01
+5567  friedma01       1994           1  ...  2018-09-30  friem001  friedma01
+5568  frielbi01       1876           4  ...  1903-09-13  frieb103  frielbi01
+
+[5569 rows x 24 columns]
+Exception: The record already exists, please update it.
+
+
+Process finished with exit code 0
